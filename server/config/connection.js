@@ -1,17 +1,10 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
+mongoose.set("strictQuery", false);
+// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/sallyeunchoi', {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-      useCreateIndex: true,
-    });
-    console.log(`MongoDB Connected: ${conn}`);
-  } catch (error) {
-    console.error(`Error: ${error.message}`);
-    process.exit(1);
-  }
-};
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/sallyeunchoi', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-export default connectDB;
+module.exports = mongoose.connection;
